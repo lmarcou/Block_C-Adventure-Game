@@ -1,0 +1,212 @@
+x = 12
+y = 12
+import sys
+import time
+Apple = 0
+t0 = time.time()
+t1 = time.time()
+total = t1-t0
+print "Start Game?\nY/N"
+gs = input(" ")
+if gs == "N":
+    print "darn shame"
+    sys.exit()
+print ("Hello, you are currently in the storage facility of a Vault \nThis is an automated message, please state your identification")
+name = input("Insert your name: ")
+print "Hello,", name,  " \n As a new citizen you do not have any authorization\nto open the door to get out you would need to be a member of\n the staff would you like to learn how to leave the room?\nY/N" 
+answer = input(" ")
+if answer == "Y":
+    print "You need the password (simple, isnt it?) \nto get out, and hint hint\nit just so happens its written down in this room."
+else:
+    print "Failure in progress\n...\n...... \n............\nGame Over"
+#   return():
+    sys.exit()
+print "The password is locked in a safe in this room \nand guess what\nType 'What'"
+What = input (" ")
+if What == "What":
+    print "The safe requires a password!\n You can move with\nL=Left\nR=Right\nB=Back\nF=Forward\nThats all good luck ", name , " "
+def move():
+    '''''''''''''''''''''''''''''''''''''''''''''''''''
+    The FIRST block of code is initializing the player position
+    from where it was initially defined (see line 2 and 3). It
+    also is asks for the direction you want to move in, and how
+    many steps you want to take.
+    -------------------------------
+    The SECOND block of code takes the user input from the first
+    block and applies it to change the x and y values. This is
+    where the main principle for the movement system is displayed.
+    This can also check for invalid input
+    '''''''''''''''''''''''''''''''''''''''''''''''''''
+    global x
+    global y
+    pos = (x, y)
+    print "Current Position: " , pos
+    print "Where to? DIRECTIONS: "
+    directions = input("F = FORWARD, B = BACKWARD, L = LEFT, R = RIGHT: ")
+    distance = int(input("How many steps?: "))
+    
+    if directions == "F":
+      y = y + distance
+      print "You move FORWARD", distance, "steps."
+    elif directions == "B":
+      y = y - distance
+      print "You move BACKWARD", distance, "steps."
+    elif directions == "L":
+        x = x - distance
+        print "You move LEFT", distance, "steps."
+    elif directions == "R":
+        x = x + distance
+        print "You move RIGHT", distance, "steps."
+    elif directions == "DEVMODE":
+        print "DEV OVERRIDE"
+        if distance == 15:
+            x = 15
+            y = 15
+        if distance == 20:
+            x = 20
+            y = 20
+    else:
+        print ("INVALID INPUT: Try again:")
+    '''''''''''''''''''''''''''''''''''''''''''''''''''
+    The following code in this function is for setting the room
+    size and defining object positions (as well as repositioning
+    the player in the event said character moves, or clips, into
+    an object. I have also added in my own debugging errors, and
+    a key for said errors and their meanings at the very bottom
+    of the program.
+    '''''''''''''''''''''''''''''''''''''''''''''''''''
+    if x >= 26:
+        x = 25
+        print "You hit a wall."
+    if x <= 0:
+        x = 1
+        print "You hit a wall."
+    if y >= 26:
+        y = 25
+        print "You hit a wall."
+    if y <= 0:
+        y = 1
+        print "You hit a wall."
+    if directions == "L":
+        print pos
+        if pos == [(1, 1) or (1, 2) or (1, 3) or (1, 4) or (1, 5) or (1, 6) or (2, 1) or (2, 2) or (2, 3) or (2, 4) or (2, 5) or (2, 6) or (3, 1) or (3, 2) or (3, 3) or (3, 4) or (3, 5) or (3, 6)]:
+            x = 4
+            print "You hit a SHELF."
+    elif directions == "B":
+        y = 4
+        print "You hit a SHELF."
+    else:
+        print "ERROR 01"
+    
+    print "......"
+            
+            
+def posEvents():
+    '''''''''''''''''''''''''''''''''''''''''''''''''''
+    The following program holds all the info on pos events.This
+    includes things such as puzzles, riddles, finding keys, etc.
+    The first two are tests to make sure the underlying principle
+    of how the code accomplishes its task works.
+    '''''''''''''''''''''''''''''''''''''''''''''''''''
+    if pos == (15, 15):
+        print "Most unfortunate, you tripped on "
+        print "a BANANA PEEL and broke your NECK"
+        exit()
+    if pos == (20, 20):
+        print "For some reason you fell through the FLOOR. "
+        print "I guess every RPG has its GLITCHES."
+        exit()
+    if pos == (16, 18):
+        print "You got an apple with writing on it! \n +1 Suspicous apple"
+        Apple = "Apple" + 1
+        print "To read whats on the apple type 'Read' Also pronounced 'reed'"
+    if pos == (16, 12):
+        print "lets answer some riddles!!"
+        print "The maker does not want it, the buyer does not use it and the user does not know it. What is it?"
+        riddle1 = input(" ")
+        answer = "coffin"
+        if riddle1 == answer:
+            print "You got it!"
+            while riddle1 != answer:
+                print "guess again."
+                print "The maker does not want it, the buyer does not use it and the user does not know it. What is it?"
+                riddle1 = input(" ")
+        if riddle1 == answer:
+            print "You got it!"
+            print"...................."
+
+    print "lets see if you get this one!!"
+    print "A doctor and a bus driver are both in love with the same woman, an attractive girl named Sarah. The bus driver had to go on a long bus trip that would last a week. Before he left, he gave Sarah seven apples. Why?"
+    riddle2 = input(" ")
+    answer2 = "an apple a day keeps the doctor away"
+    
+    if riddle2 == answer2:
+       print "niceee job, got it on the first try!!"
+    while riddle2 != answer2:
+        print "try again."
+        print "A doctor and a bus driver are both in love with the same woman, an attractive girl named Sarah. The bus driver had to go on a long bus trip that would last a week. Before he left, he gave Sarah seven apples. Why?"
+        riddle2 = input(" ")
+        if riddle2 == answer2:
+            print "You got it!"
+    print"...................."
+
+    print "ANOTHER ONE"
+    print "A seven letter word containing thousands of letters?"
+    riddle3 = input(" ")
+    answer3 = "mailbox"
+
+    if riddle3 == answer3:
+        print "niceee job, got it on the first try!!"
+    while riddle3 != answer3:
+        print "try again."
+        print "A seven letter word containing thousands of letters?"
+        riddle3 = input(" ")
+    if riddle3 == answer3:
+        print "You got it!"
+    print"...................."
+
+
+    print "you are good at this, try this one"
+    print "What begins with T, ends with T and has T in it?"
+    riddle4 = input(" ")
+    answer4 = "teapot"
+    
+    if riddle4 == answer4:
+        print "wow, got it on the first try!!"
+    while riddle4 != answer4:
+        print "try again."
+        print "What begins with T, ends with T and has T in it?"
+        riddle4 = input(" ")
+        if riddle4 == answer4:
+            print "You nailed it!"
+    print"...................."
+        
+
+    print "how about this"
+    print "A blue house has blue bricks. A yellow house has a yellow bricks. What is a green house made of?"
+    riddle5 = input(" ")
+    answer5 = "glass"
+
+    if riddle5 == answer5:
+        print "neard, you got it on the firt time!"
+    while riddle5 != answer5:
+        print "try again."
+        print "A blue house has blue bricks; a yellow house has a yellow bricks. What is a green house made of?"
+    riddle5 = input(" ")
+    if riddle5 == answer5:
+        print "great job!"
+    print"...................."
+
+    print"congratulations you have passed the RIDDLE CHALANGE!!"
+    
+    for i in range(200):
+       move()
+    pos = (x, y)
+    posEvents()
+    
+'''''''''''''''''''''''''''''''''''''''''''''''''''
+ERROR 01 = This can mean the player has gone out of the
+           "play area" and tried to re-enter it via a non
+           collidable object. Or has used DEVMODE to
+           teleport to an occupied space.
+'''''''''''''''''''''''''''''''''''''''''''''''''''
